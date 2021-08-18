@@ -1,5 +1,3 @@
-const run = () => {
+export const run = () => {
   console.log("TESTING________");
 };
-
-run()

@@ -1,7 +1,13 @@
 {
   "name": "testappx",
-  "version": "1.0.5",
-  "main": "dist/index.js",
+  "version": "1.0.6",
+  "main": "./dist/index.js",
+  "engines": {
+    "node": "14.16.0"
+  },
+  "bin": {
+    "testappx": "./dist/index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cyber-netics/testapp.git"
