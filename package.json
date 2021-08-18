@@ -1,0 +1,16 @@
+{
+  "name": "testapp",
+  "version": "1.0.3",
+  "main": "dist/bin/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cyber-netics/testapp.git"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "ts-node": "^10.2.0",
+    "typescript": "^4.3.5"
+  }
+}
