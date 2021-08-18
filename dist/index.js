@@ -1,4 +1,5 @@
 "use strict";
-const run = () => {
-    console.log("TESTING________");
-};
+Object.defineProperty(exports, "__esModule", { value: true });
+const bundler_1 = require("./bundler");
+const data = new bundler_1.Bundler();
+console.log("---", data);

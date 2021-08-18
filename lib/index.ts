@@ -1,3 +1,4 @@
-export const run = () => {
-  console.log("TESTING________");
-};
+import { Bundler } from "./bundler";
+
+const data = new Bundler();
+console.log("---", data);
