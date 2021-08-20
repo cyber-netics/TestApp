@@ -3,13 +3,13 @@
     "bundless.json"
   ],
   "name": "testappx",
-  "version": "1.1.5",
-  "main": "./bin/cli.js",
+  "version": "1.1.6",
+  "main": "./bin/cli",
   "engines": {
     "node": "14.16.0"
   },
   "bin": {
-    "testappx": "./bin/cli.js"
+    "testappx": "./bin/cli"
   },
   "repository": {
     "type": "git",
