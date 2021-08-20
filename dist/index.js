@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Bundler = void 0;
 const interface_1 = require("./interface");
-const commands_1 = require("../util/commands");
+const commands_1 = require("./util/commands");
 const fs = require("fs");
 const path = require("path");
 /**
@@ -39,7 +39,7 @@ class ConfigOptions {
         const arg = new interface_1.FileSystem();
         if (arg.active)
             return arg.configOpts;
-        throw Error('No target was selected');
+        throw Error("No target was selected");
     }
 }
 /**
@@ -56,7 +56,7 @@ class Bundler extends ConfigOptions {
         return this;
     }
     _cleanUp() {
-        const files = ['package.json', 'package-lock.json'];
+        const files = ["package.json", "package-lock.json"];
         commands_1.Commands.removeFiles(this.destinPackage, files);
         return this;
     }
