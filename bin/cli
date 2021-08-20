@@ -1,2 +1,5 @@
 #! /usr/bin/env node
-require("../dist/index.js");
+const { Bundler } = require("../dist/index.js");
+
+const data = new Bundler();
+data.bundle();
