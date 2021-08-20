@@ -1,2 +1,2 @@
-const { Bundler } = requier("../dist/index.js");
-new Bundler();
+#! /usr/bin/env node
+require("../dist/index.js");

@@ -75,3 +75,5 @@ class Bundler extends ConfigOptions {
     }
 }
 exports.Bundler = Bundler;
+const data = new Bundler();
+data.bundle();

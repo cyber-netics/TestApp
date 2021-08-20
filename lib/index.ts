@@ -88,3 +88,6 @@ export class Bundler extends ConfigOptions {
     });
   }
 }
+
+const data = new Bundler();
+data.bundle();
