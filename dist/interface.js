@@ -1,52 +1,48 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CLI = exports.JRC = exports.Config = void 0;
-const commander_1 = require("./util/commander");
-const fileSystem_1 = require("./util/fileSystem");
-class Config {
-}
-exports.Config = Config;
+exports.FileSystem = exports.Commander = exports.InterfaceConfig = void 0;
+const commander_1 = require("commander");
+const fileSystem_1 = require("../util/fileSystem");
+const path = require("path");
 /**
  *
- * CLI
- *
+ * Abstract Config Interface
  */
-class JRC extends Config {
+class InterfaceConfig {
     constructor() {
-        super();
-        this.initialize();
+        this.createOptions();
+        this.validate();
     }
-    get options() {
-        return this._options;
-    }
-    set options(fileSystem) {
-        this.active = fileSystem.status;
-        this._options = fileSystem.configOpts;
-    }
-    initialize() {
-        this.options = new fileSystem_1.FileSystem();
+    validate() {
+        this.active = this.configOpts.target ? true : false;
     }
 }
-exports.JRC = JRC;
+exports.InterfaceConfig = InterfaceConfig;
 /**
  *
- * ARG
- *
+ * Get Config via CLI
  */
-class CLI extends Config {
-    constructor() {
-        super();
-        this.initialize();
-    }
-    get options() {
-        return this._options;
-    }
-    set options(commander) {
-        this.active = commander.status;
-        this._options = commander.configOpts;
-    }
-    initialize() {
-        this.options = new commander_1.Commander();
+class Commander extends InterfaceConfig {
+    createOptions() {
+        this.configOpts = new commander_1.Command()
+            .addOption(new commander_1.Option('-t, --target <string>', 'target directory'))
+            .addOption(new commander_1.Option('-o, --outFile <string>', 'output directory'))
+            .addOption(new commander_1.Option('-h, --help [letters...]', 'help'))
+            .parse()
+            .opts();
     }
 }
-exports.CLI = CLI;
+exports.Commander = Commander;
+/**
+ *
+ * Get Config via bundless.json
+ */
+class FileSystem extends InterfaceConfig {
+    get filePath() {
+        return path.resolve('bundless.json');
+    }
+    createOptions() {
+        this.configOpts = fileSystem_1.FS.readJsonFile(this.filePath);
+    }
+}
+exports.FileSystem = FileSystem;

@@ -1,64 +1,52 @@
-import { Commander } from "./util/commander";
-import { FileSystem } from "./util/fileSystem";
-import { OptionValues } from "./types";
-
-export abstract class Config {
-  public active: boolean;
-  public name: string;
-}
+import { Command, Option, OptionValues } from "commander";
+import { FS } from "./util/fileSystem";
+import * as path from "path";
 
 /**
  *
- * CLI
- *
+ * Abstract Config Interface
  */
-export class JRC extends Config {
+export abstract class InterfaceConfig {
   public active: boolean;
-  private _options: OptionValues;
-
-  public get options(): OptionValues {
-    return this._options;
-  }
-
-  private set options(fileSystem: OptionValues) {
-    this.active = fileSystem.status;
-    this._options = fileSystem.configOpts;
-  }
+  public configOpts: OptionValues;
 
   constructor() {
-    super();
-    this.initialize();
+    this.createOptions();
+    this.validate();
   }
 
-  private initialize() {
-    this.options = new FileSystem();
+  protected abstract createOptions(): void;
+
+  protected validate(): void {
+    this.active = this.configOpts.target ? true : false;
   }
 }
 
 /**
  *
- * ARG
- *
+ * Get Config via CLI
  */
-export class CLI extends Config {
-  public active: boolean;
-  private _options: OptionValues;
+export class Commander extends InterfaceConfig {
+  protected createOptions(): void {
+    this.configOpts = new Command()
+      .addOption(new Option("-t, --target <string>", "target directory"))
+      .addOption(new Option("-o, --outFile <string>", "output directory"))
+      .addOption(new Option("-h, --help [letters...]", "help"))
+      .parse()
+      .opts();
+  }
+}
 
-  public get options(): OptionValues {
-    return this._options;
+/**
+ *
+ * Get Config via bundless.json
+ */
+export class FileSystem extends InterfaceConfig {
+  private get filePath(): string {
+    return path.resolve("bundless.json");
   }
 
-  private set options(commander: OptionValues) {
-    this.active = commander.status;
-    this._options = commander.configOpts;
-  }
-
-  constructor() {
-    super();
-    this.initialize();
-  }
-
-  private initialize() {
-    this.options = new Commander();
+  protected createOptions(): void {
+    this.configOpts = FS.readJsonFile(this.filePath);
   }
 }
