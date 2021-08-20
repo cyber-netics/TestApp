@@ -3,7 +3,7 @@
     "bundless.json"
   ],
   "name": "testappx",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "main": "./bin/cli.js",
   "engines": {
     "node": "14.16.0"
@@ -19,7 +19,6 @@
     "build": "tsc"
   },
   "dependencies": {
-    "commander": "^8.1.0",
     "fs-extra": "^10.0.0"
   },
   "devDependencies": {
